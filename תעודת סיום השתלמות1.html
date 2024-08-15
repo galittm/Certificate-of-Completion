@@ -1,0 +1,234 @@
+<html><head><base href="https://example.com/">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>תעודת סיום השתלמות בספרות</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;700&family=Rubik:wght@400;700&family=Amatic+SC:wght@700&family=Alef:wght@400;700&display=swap');
+
+    body {
+        direction: rtl;
+        font-family: 'Heebo', sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f0f0f0;
+    }
+
+    .certificate {
+        width: 800px;
+        height: 600px;
+        background: linear-gradient(135deg, #a0d8ef, #70b8e0);
+        border: 10px solid gold;
+        outline: 1px solid black;
+        border-radius: 15px;
+        padding: 20px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .stars {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+
+    .star {
+        position: absolute;
+        background-color: white;
+        border-radius: 50%;
+        animation: twinkle 1s infinite alternate;
+    }
+
+    @keyframes twinkle {
+        0% { opacity: 0.3; transform: scale(1); }
+        100% { opacity: 1; transform: scale(1.3); }
+    }
+
+    .date-picker {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        font-size: 14px;
+    }
+
+    .date-picker input {
+        border: 1px solid gold;
+        border-radius: 4px;
+        padding: 2px 5px;
+    }
+
+    .quote {
+        font-family: 'Amatic SC', cursive;
+        font-size: 28px;
+        font-weight: 700;
+        margin-top: 40px;
+        text-align: center;
+        position: relative;
+    }
+
+    .golden-star {
+        position: absolute;
+        top: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: gold;
+        font-size: 20px;
+    }
+
+    .congrats {
+        font-family: 'Heebo', sans-serif;
+        font-size: 22px;
+        font-weight: 700;
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-top: 40px;
+        text-align: center;
+    }
+
+    .subtitle {
+        font-size: 32px;
+        color: black;
+        font-weight: bold;
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .name-input {
+        font-size: 24px;
+        margin-top: 30px;
+        text-align: center;
+    }
+
+    .name-input input {
+        font-size: 24px;
+        width: 300px;
+        text-align: center;
+        border: 1px solid gold;
+        border-radius: 4px;
+        padding: 2px 5px;
+    }
+
+    .instructor {
+        font-size: 16px;
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .download-btn {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 10px 20px;
+        background-color: white;
+        color: black;
+        border: 2px solid gold;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        box-shadow: 0 0 10px gold;
+    }
+
+    .sunflower {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        width: 100px;
+        height: 100px;
+    }
+
+    .logo {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+    }
+</style>
+</head>
+<body>
+<div class="certificate" id="certificate">
+    <div class="stars" id="stars"></div>
+    <div class="date-picker">
+        <label for="date">תאריך:</label>
+        <input type="date" id="date" name="date">
+    </div>
+    <div class="quote">
+        <span class="golden-star">★</span>
+        <strong>"איך זה שכוכב אחד לבד מעז" <span style="font-size: 0.8em;">(נתן זך)</span></strong>
+    </div>
+    <div class="congrats"><strong>כל הכבוד לכל הכוכבות וכוכבי השתלמות הבינה המלאכותית שהעזו והצליחו!</strong></div>
+    <div class="title">תעודת סיום ההשתלמות בספרות (ממלכתי)</div>
+    <div class="subtitle">קל לשלב דיגיטל ובינה בתבונה</div>
+    <div class="name-input">
+        מוענקת בזאת ל
+        <input type="text" id="name" placeholder="שם מלא">
+    </div>
+    <div class="instructor" style="margin-top: 40px;">מנחת ההשתלמות: גלית טולדו משגב</div>
+    <div class="instructor" style="margin-top: 10px;">מדריכה ארצית להוראת הספרות</div>
+    <svg class="sunflower" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="20" fill="#FFD700"/>
+        <g id="petals">
+            <path d="M50 10 Q60 30 50 50 Q40 30 50 10" fill="#FFA500"/>
+            <path d="M50 10 Q60 30 50 50 Q40 30 50 10" fill="#FFA500" transform="rotate(45 50 50)"/>
+            <path d="M50 10 Q60 30 50 50 Q40 30 50 10" fill="#FFA500" transform="rotate(90 50 50)"/>
+            <path d="M50 10 Q60 30 50 50 Q40 30 50 10" fill="#FFA500" transform="rotate(135 50 50)"/>
+            <path d="M50 10 Q60 30 50 50 Q40 30 50 10" fill="#FFA500" transform="rotate(180 50 50)"/>
+            <path d="M50 10 Q60 30 50 50 Q40 30 50 10" fill="#FFA500" transform="rotate(225 50 50)"/>
+            <path d="M50 10 Q60 30 50 50 Q40 30 50 10" fill="#FFA500" transform="rotate(270 50 50)"/>
+            <path d="M50 10 Q60 30 50 50 Q40 30 50 10" fill="#FFA500" transform="rotate(315 50 50)"/>
+        </g>
+        <circle cx="50" cy="50" r="10" fill="#8B4513"/>
+    </svg>
+    <img class="logo" src="https://scontent.ftlv18-1.fna.fbcdn.net/v/t39.30808-6/455262297_10161401660229344_1675941153529082217_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=127cfc&_nc_ohc=b5kYok-RQPIQ7kNvgG-2VTM&_nc_ht=scontent.ftlv18-1.fna&oh=00_AYBqkGduUnw1hbN14xUig_MQVUXJACjPRtMjS0KeXi0WbQ&oe=66C3B590" alt="לוגו ההשתלמות" width="100" height="100">
+    <button class="download-btn" onclick="downloadPDF()">להורדת התעודה</button>
+</div>
+
+<script>
+    // Create twinkling stars
+    const starsContainer = document.getElementById('stars');
+    for (let i = 0; i < 80; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.top = `${Math.random() * 100}%`;
+        star.style.width = `${Math.random() * 4 + 1}px`;
+        star.style.height = star.style.width;
+        star.style.animationDelay = `${Math.random() * 2}s`;
+        starsContainer.appendChild(star);
+    }
+
+    // Download PDF function
+    function downloadPDF() {
+        const { jsPDF } = window.jspdf;
+        const certificate = document.getElementById('certificate');
+        
+        html2canvas(certificate).then(canvas => {
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jsPDF({
+                orientation: 'landscape',
+                unit: 'px',
+                format: [canvas.width, canvas.height]
+            });
+            
+            pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+            pdf.save('תעודת_סיום_השתלמות.pdf');
+        });
+    }
+</script>
+</body>
+</html>
